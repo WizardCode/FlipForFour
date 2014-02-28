@@ -22,6 +22,11 @@ public class FlipForX {
             counts[i] = 0;
     }
 
+    public char GetPosition (int R, int C)
+    {
+        return positions[R][C];
+    }
+
     public String toString ()
     {
         String outs = "\n";

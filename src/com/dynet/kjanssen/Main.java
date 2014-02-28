@@ -6,8 +6,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int SIZE = 5;
-        int WIN = 4;
+        final int SIZE = 5;
+        final int WIN = 4;
         FlipForX FFX = new FlipForX(SIZE, WIN);
         int player = 1;
         int winner = 0;
