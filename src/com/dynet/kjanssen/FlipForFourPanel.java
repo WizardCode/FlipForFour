@@ -120,31 +120,33 @@ public class FlipForFourPanel extends JPanel {
 
             public void mouseClicked (MouseEvent e)
             {
-                System.out.println("Clicked: (" + row + ", " + col + ")");
+                // System.out.println("Clicked: (" + row + ", " + col + ")");
 
                 boolean goodMove = fff.Play(col,e.getButton() == MouseEvent.BUTTON3 ? 'F' : 'D', player);
                 if (goodMove)
                 {
                     player = player == 1 ? 2 : 1;
                     displayPanel.repaint();
+                    mouseExited(e);
+                    mouseEntered(e);
                     winner = fff.Test();
                     if (winner > 0)
                         UpdatePanel ();
                 }
             }
 
-            public void mouseEntered (MouseEvent event)
+            public void mouseEntered (MouseEvent e)
             {
-                System.out.println("Entered: (" + row + ", " + col + ")");
+                // System.out.println("Entered: (" + row + ", " + col + ")");
 
                 for (int i = 0; i < squares.length; i++)
                     if (squares[i].col == col)
                         squares[i].setBackground(player == 2 ? new Color(255, 170, 170) : new Color(150, 130, 255));
             }
 
-            public void mouseExited (MouseEvent event)
+            public void mouseExited (MouseEvent e)
             {
-                System.out.println("Exited: (" + row + ", " + col + ")");
+                // System.out.println("Exited: (" + row + ", " + col + ")");
 
                 for (int i = 0; i < squares.length; i++)
                     if (squares[i].col == col)

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="FlipForFour:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/FlipForFour_jar</output-path>
+    <root id="archive" name="FlipForFour.jar">
+      <element id="module-output" name="FlipForFour" />
+    </root>
+  </artifact>
+</component>
