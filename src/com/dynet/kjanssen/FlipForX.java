@@ -1,5 +1,7 @@
 package com.dynet.kjanssen;
 
+import java.util.Random;
+
 public class FlipForX {
 
     int size;
@@ -74,6 +76,24 @@ public class FlipForX {
         return false;
     }
 
+    private boolean UnPlay (int col, char play)
+    {
+        if (play == 'D' && counts[col] > 0) {
+            positions[counts[col]][col] = ' ';
+            counts[col]--;
+            return true;
+        } else if (play == 'F' && counts[col] > 0) {
+            for (int i = 1, j = counts[col]; i < j; i++, j--) {
+                char temp = positions[i][col];
+                positions[i][col] = positions[j][col];
+                positions[j][col] = temp;
+            }
+            return true;
+        }
+
+        return false;
+    }
+
     public int Test ()
     {
         int first = 1, last = size - toWin + 1;
@@ -121,4 +141,56 @@ public class FlipForX {
         return 0;
     }
 
+    public boolean MakeBestPlay (int who)
+    {
+        // check for winning moves
+        for (int col = 1; col <= size; col++) {
+            Play(col, 'D', who);
+            if (Test() == who)
+                return true;
+            UnPlay(col, 'D');
+            Play(col, 'F', who);
+            if (Test() == who)
+                return true;
+            UnPlay(col, 'F');
+        }
+
+        // check for blocking drop moves
+        for (int col = 1; col <= size; col++) {
+            int other = who == 1 ? 2 : 1;
+
+            Play(col, 'D', other);
+            if (Test() == other) {
+                UnPlay(col, 'D');
+                Play(col, 'D', who);
+                return true;
+            }
+            UnPlay(col, 'D');
+        }
+
+        // check for blocking flip moves
+        for (int col = 1; col <= size; col++) {
+            int other = who == 1 ? 2 : 1;
+
+            Play(col, 'F', other);
+            if (Test() == other) {
+                UnPlay(col, 'F');
+                if (counts[col] < size) {
+                    Play(col, 'D', who);
+                    return true;
+                }
+            }
+            UnPlay(col, 'F');
+        }
+
+        // else make random move
+        Random random = new Random();
+        int n = random.nextInt(size) + 1;
+
+        while (!Play(n, 'D', who)) {
+            n = random.nextInt(size) + 1;
+        }
+
+        return true;
+    }
 }

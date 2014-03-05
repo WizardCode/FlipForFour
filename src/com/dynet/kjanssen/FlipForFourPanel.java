@@ -3,9 +3,7 @@ package com.dynet.kjanssen;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 public class FlipForFourPanel extends JPanel {
 
@@ -18,6 +16,7 @@ public class FlipForFourPanel extends JPanel {
     private DisplayPanel displayPanel;
     private JPanel colLabels;
     private Image imageR, imageB;
+    private Color redHighlight, blueHighlight;
 
     public FlipForFourPanel (JFrame parent)
     {
@@ -28,7 +27,7 @@ public class FlipForFourPanel extends JPanel {
         setBackground(Color.WHITE);
         font = new Font ("Arial", Font.PLAIN, 30);
         title = new JLabel ("Flip For Four");
-        title.setFont (new Font ("Arial", Font.PLAIN, 40));
+        title.setFont(new Font("Arial", Font.PLAIN, 40));
         add(title);
         displayPanel = new DisplayPanel();
         add(displayPanel);
@@ -44,6 +43,8 @@ public class FlipForFourPanel extends JPanel {
         add(colLabels);
         imageR = new ImageIcon(getClass().getResource("blue-ball.png")).getImage();
         imageB = new ImageIcon(getClass().getResource("red-ball.png")).getImage();
+        redHighlight = new Color(255, 170, 170);
+        blueHighlight = new Color(150, 130, 255);
 
     }
 
@@ -123,15 +124,40 @@ public class FlipForFourPanel extends JPanel {
                 // System.out.println("Clicked: (" + row + ", " + col + ")");
 
                 boolean goodMove = fff.Play(col,e.getButton() == MouseEvent.BUTTON3 ? 'F' : 'D', player);
+                System.out.println("Player: " + player + " goes " + goodMove);
                 if (goodMove)
                 {
                     player = player == 1 ? 2 : 1;
                     displayPanel.repaint();
-                    mouseExited(e);
-                    mouseEntered(e);
+                    //mouseExited(e);
+                    //mouseEntered(e);
                     winner = fff.Test();
                     if (winner > 0)
                         UpdatePanel ();
+                    else {
+                        int delay = 500; //milliseconds
+                        ActionListener taskPerformer = new ActionListener()
+                        {
+                            public void actionPerformed(ActionEvent evt)
+                            {
+                                boolean goodMove = fff.MakeBestPlay(player);
+                                System.out.println("Player: " + player + " goes " + goodMove);
+
+                                if (goodMove)
+                                {
+                                    player = player == 1 ? 2 : 1;
+
+                                    displayPanel.repaint();
+                                    winner = fff.Test();
+                                    if (winner > 0)
+                                        UpdatePanel ();
+                                }
+                            }
+                        };
+                        Timer timer = new Timer(delay, taskPerformer);
+                        timer.setRepeats(false);
+                        timer.start();
+                    }
                 }
             }
 
@@ -141,7 +167,7 @@ public class FlipForFourPanel extends JPanel {
 
                 for (int i = 0; i < squares.length; i++)
                     if (squares[i].col == col)
-                        squares[i].setBackground(player == 2 ? new Color(255, 170, 170) : new Color(150, 130, 255));
+                        squares[i].setBackground(player == 2 ? redHighlight : blueHighlight);
             }
 
             public void mouseExited (MouseEvent e)
