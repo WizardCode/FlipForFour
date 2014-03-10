@@ -5,11 +5,12 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-public class FlipForFourPanel extends JPanel {
+public class FlipForFourPanel extends JPanel implements KeyListener {
 
     private FlipForX fff;
     private int player;
     private int winner;
+    private boolean waiting;
     private JFrame frame;
     private Font font;
     private JLabel title;
@@ -23,7 +24,9 @@ public class FlipForFourPanel extends JPanel {
         fff = new FlipForX(5, 4);
         player = 1;
         winner = 0;
+        waiting = false;
         frame = parent;
+        frame.addKeyListener(this);
         setBackground(Color.WHITE);
         font = new Font ("Arial", Font.PLAIN, 30);
         title = new JLabel ("Flip For Four");
@@ -41,11 +44,13 @@ public class FlipForFourPanel extends JPanel {
             colLabels.add(colLabel);
         }
         add(colLabels);
+        JLabel info = new JLabel("Left-Click: Drop     Right-Click: Flip     F1: Help");
+        info.setFont(new Font("Arial", Font.PLAIN, 20));
+        add(info);
         imageR = new ImageIcon(getClass().getResource("blue-ball.png")).getImage();
         imageB = new ImageIcon(getClass().getResource("red-ball.png")).getImage();
         redHighlight = new Color(255, 170, 170);
         blueHighlight = new Color(150, 130, 255);
-
     }
 
     void UpdatePanel()
@@ -61,6 +66,21 @@ public class FlipForFourPanel extends JPanel {
             Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
         }
 
+    }
+
+    public void keyTyped(KeyEvent e) {}
+    public void keyPressed(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) {
+        System.out.println("Key Released: " + e.getKeyCode() + "F1: " + KeyEvent.VK_F1);
+        if (e.getKeyCode() == KeyEvent.VK_F1)
+            JOptionPane.showMessageDialog(null,
+                    "The goal of Flip For Four is to get four pieces\n" +
+                    "of the same color in a row or a diagonal. One\n" +
+                    "turn consists of either dropping a piece into\n" +
+                    "column or flipping the contents of a column\n" +
+                    "upside down.",
+                    "Flip For Four Help",
+                    JOptionPane.PLAIN_MESSAGE);
     }
 
     class DisplayPanel extends JPanel
@@ -123,9 +143,10 @@ public class FlipForFourPanel extends JPanel {
             {
                 // System.out.println("Clicked: (" + row + ", " + col + ")");
 
-                boolean goodMove = fff.Play(col,e.getButton() == MouseEvent.BUTTON3 ? 'F' : 'D', player);
+                boolean goodMove = false;
+                if (!waiting) goodMove = fff.Play(col,e.getButton() == MouseEvent.BUTTON3 ? 'F' : 'D', player);
                 System.out.println("Player: " + player + " goes " + goodMove);
-                if (goodMove)
+                if (goodMove && !waiting)
                 {
                     player = player == 1 ? 2 : 1;
                     displayPanel.repaint();
@@ -135,6 +156,7 @@ public class FlipForFourPanel extends JPanel {
                     if (winner > 0)
                         UpdatePanel ();
                     else {
+                        waiting = true;
                         int delay = 500; //milliseconds
                         ActionListener taskPerformer = new ActionListener()
                         {
@@ -151,6 +173,8 @@ public class FlipForFourPanel extends JPanel {
                                     winner = fff.Test();
                                     if (winner > 0)
                                         UpdatePanel ();
+
+                                    waiting = false;
                                 }
                             }
                         };
@@ -189,7 +213,7 @@ public class FlipForFourPanel extends JPanel {
         JFrame frame = new JFrame ("Flip For Four");
         FlipForFourPanel fffPanel = new FlipForFourPanel (frame);
         frame.getContentPane().add (fffPanel);
-        frame.setSize (600, 650);
+        frame.setSize (600, 675);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
         frame.setResizable (false);
