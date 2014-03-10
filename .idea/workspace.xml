@@ -90,9 +90,11 @@
       <file leaf-file-name="FlipForFourPanel.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/dynet/kjanssen/FlipForFourPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="28" selection-start="308" selection-end="308" vertical-scroll-proportion="0.33512545" vertical-offset="17" max-vertical-offset="3808">
+            <state line="179" column="53" selection-start="6694" selection-end="6694" vertical-scroll-proportion="0.36021507" vertical-offset="2842" max-vertical-offset="4250">
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#6806#7706#0" expanded="true" />
+                <element signature="e#7679#7680#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -428,7 +430,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.119375" sideWeight="0.77024794" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24155845" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24155845" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -481,6 +483,8 @@
         <state line="155" column="25" selection-start="5741" selection-end="5741" vertical-scroll-proportion="0.0" vertical-offset="2228" max-vertical-offset="3468">
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#6806#7706#0" expanded="true" />
+            <element signature="e#7679#7680#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -504,6 +508,8 @@
         <state line="148" column="19" selection-start="5175" selection-end="5175" vertical-scroll-proportion="0.0" vertical-offset="2516" max-vertical-offset="2992">
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#6806#7706#0" expanded="true" />
+            <element signature="e#7679#7680#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -527,6 +533,8 @@
         <state line="141" column="85" selection-start="4965" selection-end="4965" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#6806#7706#0" expanded="true" />
+            <element signature="e#7679#7680#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -575,9 +583,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dynet/kjanssen/FlipForFourPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="28" selection-start="308" selection-end="308" vertical-scroll-proportion="0.33512545" vertical-offset="17" max-vertical-offset="3808">
+        <state line="179" column="53" selection-start="6694" selection-end="6694" vertical-scroll-proportion="0.36021507" vertical-offset="2842" max-vertical-offset="4250">
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#6806#7706#0" expanded="true" />
+            <element signature="e#7679#7680#0" expanded="true" />
           </folding>
         </state>
       </provider>

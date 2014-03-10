@@ -11,6 +11,7 @@ public class FlipForFourPanel extends JPanel implements KeyListener {
     private int player;
     private int winner;
     private boolean waiting;
+    private boolean onePlayer;
     private JFrame frame;
     private Font font;
     private JLabel title;
@@ -51,6 +52,22 @@ public class FlipForFourPanel extends JPanel implements KeyListener {
         imageB = new ImageIcon(getClass().getResource("red-ball.png")).getImage();
         redHighlight = new Color(255, 170, 170);
         blueHighlight = new Color(150, 130, 255);
+        DecidePlayers();
+    }
+
+    void DecidePlayers ()
+    {
+        //Custom button text
+        Object[] options = {"1 Player", "2 Player"};
+        onePlayer = JOptionPane.showOptionDialog(frame,
+                "Would you like to play 1 Player (against computer)\n" +
+                        "or 2 Player (hotseat)? ",
+                "How would you like to play?",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[1]) == 0;
     }
 
     void UpdatePanel()
@@ -61,6 +78,7 @@ public class FlipForFourPanel extends JPanel implements KeyListener {
         if (playAgain == 0) {
             fff = new FlipForX(5, 4);
             displayPanel.repaint();
+            DecidePlayers();
         } else {
             WindowEvent wev = new WindowEvent(frame, WindowEvent.WINDOW_CLOSING);
             Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
@@ -144,24 +162,28 @@ public class FlipForFourPanel extends JPanel implements KeyListener {
                 // System.out.println("Clicked: (" + row + ", " + col + ")");
 
                 boolean goodMove = false;
-                if (!waiting) goodMove = fff.Play(col,e.getButton() == MouseEvent.BUTTON3 ? 'F' : 'D', player);
+                if (!waiting) goodMove = fff.Play(col, e.getButton() == MouseEvent.BUTTON3 ? 'F' : 'D', player);
                 System.out.println("Player: " + player + " goes " + goodMove);
                 if (goodMove && !waiting)
                 {
                     player = player == 1 ? 2 : 1;
                     displayPanel.repaint();
-                    //mouseExited(e);
-                    //mouseEntered(e);
+                    if (!onePlayer) {
+                        mouseExited(e);
+                        mouseEntered(e);
+                    }
                     winner = fff.Test();
                     if (winner > 0)
                         UpdatePanel ();
-                    else {
+                    else if (onePlayer) {
                         waiting = true;
+                        player = player == 1 ? 2 : 1;
                         int delay = 500; //milliseconds
                         ActionListener taskPerformer = new ActionListener()
                         {
                             public void actionPerformed(ActionEvent evt)
                             {
+                                player = player == 1 ? 2 : 1;
                                 boolean goodMove = fff.MakeBestPlay(player);
                                 System.out.println("Player: " + player + " goes " + goodMove);
 
