@@ -145,42 +145,46 @@ public class FlipForX {
     {
         // check for winning moves
         for (int col = 1; col <= size; col++) {
-            Play(col, 'D', who);
-            if (Test() == who)
-                return true;
-            UnPlay(col, 'D');
-            Play(col, 'F', who);
-            if (Test() == who)
-                return true;
-            UnPlay(col, 'F');
+            if (Play(col, 'D', who)) {
+                if (Test() == who)
+                    return true;
+                UnPlay(col, 'D');
+                if (Play(col, 'F', who)) {
+                    if (Test() == who)
+                        return true;
+                    UnPlay(col, 'F');
+                }
+            }
         }
 
         // check for blocking drop moves
         for (int col = 1; col <= size; col++) {
             int other = who == 1 ? 2 : 1;
 
-            Play(col, 'D', other);
-            if (Test() == other) {
+            if (Play(col, 'D', other)) {
+                if (Test() == other) {
+                    UnPlay(col, 'D');
+                    Play(col, 'D', who);
+                    return true;
+                }
                 UnPlay(col, 'D');
-                Play(col, 'D', who);
-                return true;
             }
-            UnPlay(col, 'D');
         }
 
         // check for blocking flip moves
         for (int col = 1; col <= size; col++) {
             int other = who == 1 ? 2 : 1;
 
-            Play(col, 'F', other);
-            if (Test() == other) {
-                UnPlay(col, 'F');
-                if (counts[col] < size) {
-                    Play(col, 'D', who);
-                    return true;
-                }
+            if (Play(col, 'F', other)) {
+                if (Test() == other) {
+                    UnPlay(col, 'F');
+                    if (counts[col] < size) {
+                        Play(col, 'D', who);
+                        return true;
+                    }
+                } else
+                    UnPlay(col, 'F');
             }
-            UnPlay(col, 'F');
         }
 
         // else make random move
